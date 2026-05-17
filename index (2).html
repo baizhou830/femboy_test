@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 男娘值测试 🌸</title>
+    <style>
+        :root {
+            --pink-1: #fff0f5;
+            --pink-2: #ffe4ec;
+            --pink-3: #ffc8d6;
+            --pink-4: #f8a5c2;
+            --pink-5: #f082ac;
+            --pink-6: #e8608c;
+            --pink-7: #d43d6a;
+            --white: #ffffff;
+            --text: #4a3040;
+            --text-light: #6b4d5c;
+            --shadow: 0 8px 32px rgba(240, 130, 160, 0.18);
+            --shadow-lg: 0 16px 48px rgba(220, 100, 140, 0.22);
+            --radius: 22px;
+            --radius-sm: 14px;
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #fce4ec 0%, #f8d5e0 15%, #fde8f0 30%, #f5dae6 45%, #fce4f0 60%, #f8dce8 75%, #fce8f2 90%, #f9dfe9 100%);
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ============ 花瓣飘落动画 ============ */
+        .petal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            top: -60px;
+            opacity: 0.55;
+            pointer-events: none;
+            animation: petalFall linear infinite;
+            filter: blur(0.5px);
+        }
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-60px) rotate(0deg) translateX(0px);
+                opacity: 0.65;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(25vh) rotate(90deg) translateX(40px);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(50vh) rotate(200deg) translateX(-35px);
+                opacity: 0.55;
+            }
+            75% {
+                transform: translateY(75vh) rotate(320deg) translateX(30px);
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(105vh) rotate(420deg) translateX(-20px);
+                opacity: 0.05;
+            }
+        }
+
+        /* ============ 主卡片容器 ============ */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 36px 30px 32px;
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: cardIn 0.5s ease-out;
+        }
+        .card.result-card {
+            animation: resultIn 0.55s ease-out;
+        }
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes resultIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.94);
+            }
+            60% {
+                transform: translateY(-4px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 卡片顶部装饰条 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f8c5d0, #f5a0b8, #f8b8c8, #f5a0b8, #f8c5d0);
+            border-radius: var(--radius) var(--radius) 0 0;
+            opacity: 0.75;
+        }
+
+        /* ============ 开始页 ============ */
+        .start-page .title-icon {
+            text-align: center;
+            font-size: 56px;
+            margin-bottom: 8px;
+            animation: bounceIcon 2s ease-in-out infinite;
+        }
+        @keyframes bounceIcon {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-16px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            70% {
+                transform: translateY(-7px);
+            }
+            85% {
+                transform: translateY(0);
+            }
+        }
+        .start-page h1 {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #d43d6a;
+            margin-bottom: 6px;
+            letter-spacing: 1.5px;
+        }
+        .start-page .subtitle {
+            text-align: center;
+            font-size: 15px;
+            color: #c47a8e;
+            margin-bottom: 24px;
+            letter-spacing: 0.8px;
+            line-height: 1.6;
+        }
+        .start-page .deco-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            font-size: 22px;
+            opacity: 0.7;
+        }
+        .start-page .info-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+        .start-page .info-pill {
+            background: #fff5f8;
+            border: 1.5px solid #fdd4df;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #c45a70;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .btn-start {
+            display: block;
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            padding: 15px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            color: #fff;
+            background: linear-gradient(135deg, #f8a5c2, #f082ac);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 22px rgba(240, 130, 160, 0.4);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: pulseBtn 2.4s ease-in-out infinite;
+        }
+        @keyframes pulseBtn {
+            0%,
+            100% {
+                box-shadow: 0 6px 22px rgba(240, 130, 160, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 34px rgba(240, 120, 150, 0.6), 0 0 0 10px rgba(248, 165, 194, 0.1);
+            }
+        }
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(230, 100, 140, 0.5);
+            background: linear-gradient(135deg, #fbb5cf, #f396b8);
+        }
+        .btn-start:active {
+            transform: scale(0.96);
+            transition: 0.12s ease;
+        }
+
+        /* ============ 测试页 ============ */
+        .test-page {
+            display: none;
+        }
+        .progress-wrap {
+            margin-bottom: 20px;
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #b07085;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #fde8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f8b8c8, #f082ac, #e8608c);
+            border-radius: 20px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+        .question-number {
+            display: inline-block;
+            background: #fff0f5;
+            color: #d43d6a;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 15px;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+        .question-text {
+            font-size: 20px;
+            font-weight: 650;
+            color: #4a3040;
+            margin-bottom: 22px;
+            line-height: 1.5;
+            letter-spacing: 0.4px;
+            min-height: 55px;
+            transition: all 0.3s ease;
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 15px 18px;
+            font-size: 15.5px;
+            color: #5a3d48;
+            background: #fffdfe;
+            border: 2px solid #f5d5e0;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.22s ease;
+            letter-spacing: 0.3px;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .option-btn:hover {
+            border-color: #f5a0b8;
+            background: #fff8fa;
+            box-shadow: 0 3px 14px rgba(240, 150, 175, 0.2);
+            transform: translateX(3px);
+        }
+        .option-btn:active {
+            transform: scale(0.975);
+            transition: 0.1s ease;
+            background: #fff0f4;
+            border-color: #f390b0;
+        }
+        .option-btn.selected {
+            border-color: #f082ac;
+            background: #fff0f5;
+            box-shadow: 0 0 0 4px rgba(240, 130, 160, 0.12);
+            animation: selectedPop 0.35s ease;
+        }
+        @keyframes selectedPop {
+            0% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.03);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .option-btn .opt-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            width: 30px;
+            text-align: center;
+        }
+        .option-btn .opt-text {
+            flex: 1;
+        }
+        .option-btn .opt-score-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover .opt-score-dot {
+            opacity: 0.85;
+            transform: scale(1.3);
+        }
+
+        /* ============ 结果页 ============ */
+        .result-page {
+            display: none;
+        }
+        .result-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .result-emoji {
+            font-size: 62px;
+            animation: bounceIcon 1.8s ease-in-out infinite;
+            display: inline-block;
+        }
+        .result-grade {
+            font-size: 26px;
+            font-weight: 700;
+            color: #d43d6a;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+        .result-score-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px auto 20px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+            border: 5px solid #f8c5d6;
+            box-shadow: 0 0 0 8px rgba(248, 180, 200, 0.15);
+            flex-direction: column;
+            gap: 2px;
+        }
+        .result-score-num {
+            font-size: 38px;
+            font-weight: 800;
+            color: #d43d6a;
+            line-height: 1;
+        }
+        .result-score-label {
+            font-size: 12px;
+            color: #b87085;
+            letter-spacing: 1px;
+        }
+        .result-hearts {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            animation: heartsGlow 1.5s ease-in-out infinite;
+        }
+        @keyframes heartsGlow {
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+        .result-bar-wrap {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .result-bar-bg {
+            width: 100%;
+            height: 18px;
+            border-radius: 20px;
+            background: #fde8f0;
+            overflow: hidden;
+            position: relative;
+        }
+        .result-bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            width: 0%;
+        }
+        .result-bar-marker {
+            position: absolute;
+            top: -8px;
+            width: 32px;
+            height: 34px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+            transform: translateX(-50%);
+            transition: left 0.8s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+        .result-desc {
+            text-align: center;
+            font-size: 15px;
+            color: #6b4d5c;
+            line-height: 1.7;
+            margin-bottom: 6px;
+            padding: 14px 18px;
+            background: #fffafc;
+            border-radius: 16px;
+            letter-spacing: 0.3px;
+        }
+        .result-extra-tag {
+            text-align: center;
+            font-size: 13px;
+            color: #c47a8e;
+            margin-bottom: 20px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        .btn-retry {
+            display: block;
+            width: 100%;
+            max-width: 240px;
+            margin: 0 auto;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #d43d6a;
+            background: #fff;
+            border: 2.5px solid #f5b8c8;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-retry:hover {
+            background: #fff5f8;
+            border-color: #f082ac;
+            box-shadow: 0 4px 16px rgba(240, 130, 160, 0.25);
+            transform: translateY(-2px);
+        }
+        .btn-retry:active {
+            transform: scale(0.95);
+            transition: 0.1s ease;
+        }
+
+        /* ============ 响应式 ============ */
+        @media (max-width: 480px) {
+            .card {
+                padding: 26px 18px 24px;
+                border-radius: 18px;
+            }
+            .card::before {
+                height: 4px;
+            }
+            .start-page h1 {
+                font-size: 25px;
+            }
+            .start-page .title-icon {
+                font-size: 44px;
+            }
+            .question-text {
+                font-size: 17.5px;
+                min-height: 45px;
+            }
+            .option-btn {
+                padding: 13px 14px;
+                font-size: 14.5px;
+                gap: 8px;
+            }
+            .option-btn .opt-icon {
+                font-size: 18px;
+                width: 24px;
+            }
+            .result-emoji {
+                font-size: 48px;
+            }
+            .result-grade {
+                font-size: 22px;
+            }
+            .result-score-circle {
+                width: 90px;
+                height: 90px;
+                border-width: 4px;
+            }
+            .result-score-num {
+                font-size: 30px;
+            }
+            .btn-start,
+            .btn-retry {
+                max-width: 100%;
+                font-size: 16px;
+                padding: 13px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ 花瓣飘落背景 ============ -->
+    <div class="petal-container" id="petalContainer"></div>
+
+    <!-- ============ 主容器 ============ -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- 卡片内容由JS动态渲染 -->
+    </div>
+
+    <script>
+        (function() {
+            // ============ 花瓣生成 ============
+            const petalContainer = document.getElementById('petalContainer');
+            const petalEmojis = ['🌸', '💮', '🩷', '🌷', '✿', '❀', '🎀', '💗', '🌺', '🍥'];
+            const petalCount = 14;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('span');
+                petal.classList.add('petal');
+                petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.fontSize = (10 + Math.random() * 20) + 'px';
+                petal.style.animationDuration = (8 + Math.random() * 16) + 's';
+                petal.style.animationDelay = (Math.random() * 14) + 's';
+                petal.style.opacity = (0.3 + Math.random() * 0.45);
+                petalContainer.appendChild(petal);
+            }
+
+            // ============ DOM引用 ============
+            const mainWrapper = document.getElementById('mainWrapper');
+
+            // ============ 题目数据 ============
+            const questions = [{
+                q: '你更喜欢哪种颜色的衣服搭配？',
+                opts: [
+                    { text: '深色系（黑/灰/深蓝）', score: 1, icon: '🌑' },
+                    { text: '中性色（白/米色/卡其）', score: 2, icon: '🤍' },
+                    { text: '柔和色（浅紫/淡蓝）', score: 3, icon: '💜' },
+                    { text: '粉色系/可爱印花', score: 4, icon: '💗' },
+                ],
+            }, {
+                q: '你的日常护肤习惯是？',
+                opts: [
+                    { text: '几乎不护肤，清水洗脸', score: 1, icon: '💧' },
+                    { text: '基础清洁，偶尔用洗面奶', score: 2, icon: '🧼' },
+                    { text: '会用水乳保湿', score: 3, icon: '🧴' },
+                    { text: '精致全套护肤+面膜', score: 4, icon: '✨' },
+                ],
+            }, {
+                q: '在商场看到可爱的玩偶或饰品时？',
+                opts: [
+                    { text: '完全无视，毫无兴趣', score: 1, icon: '😐' },
+                    { text: '瞟一眼，觉得还行', score: 2, icon: '👀' },
+                    { text: '停下来看看，挺喜欢的', score: 3, icon: '🥰' },
+                    { text: '走不动路，必须拿下！', score: 4, icon: '🛍️' },
+                ],
+            }, {
+                q: '你平时的坐姿习惯更接近？',
+                opts: [
+                    { text: '大大咧咧，腿分得很开', score: 1, icon: '🦵' },
+                    { text: '比较随意，怎么舒服怎么来', score: 2, icon: '🪑' },
+                    { text: '比较端正，注意仪态', score: 3, icon: '🧘' },
+                    { text: '喜欢并腿坐或翘优雅的二郎腿', score: 4, icon: '💃' },
+                ],
+            }, {
+                q: '说话时的语气和用词习惯？',
+                opts: [
+                    { text: '直来直去，比较粗犷', score: 1, icon: '🗣️' },
+                    { text: '正常中性，不刻意修饰', score: 2, icon: '💬' },
+                    { text: '比较温和，注意措辞', score: 3, icon: '🌿' },
+                    { text: '常带"呀~""呢~""嘛~"等语气词', score: 4, icon: '🎵' },
+                ],
+            }, {
+                q: '对于化妆这件事，你的态度是？',
+                opts: [
+                    { text: '完全拒绝，坚决不碰', score: 1, icon: '🚫' },
+                    { text: '不排斥但自己不会化', score: 2, icon: '🤷' },
+                    { text: '偶尔好奇会尝试一下', score: 3, icon: '🎨' },
+                    { text: '喜欢化妆，享受变美的过程', score: 4, icon: '💄' },
+                ],
+            }, {
+                q: '你的社交媒体头像通常是？',
+                opts: [
+                    { text: '风景照或默认头像', score: 1, icon: '🏔️' },
+                    { text: '动漫角色（帅酷型）', score: 2, icon: '😎' },
+                    { text: '动漫角色（可爱型）', score: 3, icon: '🐱' },
+                    { text: '可爱自拍或萌系插画', score: 4, icon: '📸' },
+                ],
+            }, {
+                q: '逛街时你更容易被什么吸引？',
+                opts: [
+                    { text: '电子产品/数码设备', score: 1, icon: '📱' },
+                    { text: '运动装备/户外用品', score: 2, icon: '⚽' },
+                    { text: '时尚服饰/穿搭单品', score: 3, icon: '👗' },
+                    { text: '化妆品/可爱小物/饰品', score: 4, icon: '🎀' },
+                ],
+            }, {
+                q: '被别人夸"可爱"时，你的反应是？',
+                opts: [
+                    { text: '不太喜欢，觉得别扭', score: 1, icon: '😒' },
+                    { text: '还好吧，没什么特别感觉', score: 2, icon: '😶' },
+                    { text: '有点小开心', score: 3, icon: '😊' },
+                    { text: '超级开心！被夸可爱最棒了！', score: 4, icon: '😆' },
+                ],
+            }, {
+                q: '对于穿裙子的看法？',
+                opts: [
+                    { text: '绝对不可能穿', score: 1, icon: '🙅' },
+                    { text: '有点好奇但不会尝试', score: 2, icon: '🤔' },
+                    { text: '自己在家偷偷试过', score: 3, icon: '🏠' },
+                    { text: '喜欢穿，感觉很好看很自在', score: 4, icon: '👗' },
+                ],
+            }, {
+                q: '你心目中的理想形象更接近？',
+                opts: [
+                    { text: '阳刚硬汉、肌肉型男', score: 1, icon: '💪' },
+                    { text: '清爽阳光的运动少年', score: 2, icon: '☀️' },
+                    { text: '温柔中性的文艺青年', score: 3, icon: '📖' },
+                    { text: '可爱甜美的精致男孩', score: 4, icon: '🍰' },
+                ],
+            }, {
+                q: '拍照时你更倾向于？',
+                opts: [
+                    { text: '站直比个耶就行了', score: 1, icon: '✌️' },
+                    { text: '自然随意，抓拍就好', score: 2, icon: '📷' },
+                    { text: '会找角度和光线', score: 3, icon: '💡' },
+                    { text: '托脸/歪头/比心等可爱pose', score: 4, icon: '🤳' },
+                ],
+            }, ];
+
+            // ============ 结果等级 ============
+            const resultGrades = [
+                { min: 12, max: 18, emoji: '🦍', grade: '钢铁直男', stars: 1, color: '#5a7da8',
+                    barColor: '#7a9cc6', desc: '你散发着强烈的阳刚之气，与男娘世界几乎绝缘。你的气质更接近传统意义上的硬汉形象，可爱这个词离你有点远~',
+                    tag: '继续做你的猛男吧！💪' },
+                { min: 19, max: 24, emoji: '🙂', grade: '普通男生', stars: 2, color: '#6b8e6b',
+                    barColor: '#8aab8a', desc: '你是一个标准的男生，偶尔会展现出一些柔和的特质，但整体上保持着传统的男性气质。男娘值处于安全区间。',
+                    tag: '平凡也是一种魅力~' },
+                { min: 25, max: 30, emoji: '🌸', grade: '温柔系男生', stars: 3, color: '#c47a8e',
+                    barColor: '#e8a0b8', desc: '你的性格中带有明显的温柔特质，可能比一般男生更注重外表和感受。有一些可爱的潜质正在悄悄萌芽~',
+                    tag: '温柔是最高级的魅力呢~' },
+                { min: 31, max: 36, emoji: '💖', grade: '可爱男孩', stars: 4, color: '#e8608c',
+                    barColor: '#f082ac', desc: '你已经具备了相当程度的可爱气质！对打扮和可爱事物有浓厚兴趣，男娘潜力很大哦~周围的人可能已经感受到你的独特魅力了！',
+                    tag: '可爱即正义！✨' },
+                { min: 37, max: 42, emoji: '🎀', grade: '准男娘', stars: 5, color: '#d43d6a',
+                    barColor: '#e8557e', desc: '你的男娘值已经突破天际！无论是外表倾向还是内心喜好，都散发着浓郁的可爱气息。可以正式考虑加入男娘行列了！',
+                    tag: '就差临门一脚啦~🎯' },
+                { min: 43, max: 48, emoji: '👑', grade: '天赋型男娘', stars: 6, color: '#b8355c',
+                    barColor: '#d43d6a', desc: '你就是天选的男娘！浑身上下每一个细胞都在呼喊着"可爱"二字。不需要犹豫了，这就是你的天赋使命！世界因你的可爱而更加美好~',
+                    tag: '恭迎男娘之王降临！👑✨' },
+            ];
+
+            // ============ 状态 ============
+            let currentQuestionIndex = 0;
+            let scores = [];
+            let isTransitioning = false;
+
+            // ============ 渲染函数 ============
+            function renderStartPage() {
+                mainWrapper.innerHTML = `
+                    <div class="card start-page">
+                        <div class="title-icon">🎀</div>
+                        <h1>男娘值测试</h1>
+                        <p class="subtitle">你有多适合成为一位<br>可爱的男娘呢？💗</p>
+                        <div class="deco-row">🌸 💖 🌸</div>
+                        <div class="info-pills">
+                            <span class="info-pill">📝 12道趣味题目</span>
+                            <span class="info-pill">⏱️ 约2分钟</span>
+                            <span class="info-pill">🎯 科学不严谨</span>
+                        </div>
+                        <button class="btn-start" onclick="startTest()">✨ 开始测试 ✨</button>
+                    </div>
+                `;
+            }
+
+            function renderQuestion(index) {
+                const q = questions[index];
+                const total = questions.length;
+                const progressPercent = Math.round((index / total) * 100);
+
+                let optionsHTML = q.opts.map((opt, i) => {
+                    const scoreColors = ['#cbd5e0', '#a0b8c8', '#e8a0b8', '#f082ac'];
+                    return `
+                        <button class="option-btn" onclick="selectAnswer(${index}, ${i})" data-index="${i}">
+                            <span class="opt-icon">${opt.icon}</span>
+                            <span class="opt-text">${opt.text}</span>
+                            <span class="opt-score-dot" style="background:${scoreColors[i]};"></span>
+                        </button>
+                    `;
+                }).join('');
+
+                mainWrapper.innerHTML = `
+                    <div class="card test-page" style="display:block;">
+                        <div class="progress-wrap">
+                            <div class="progress-info">
+                                <span>第 ${index + 1} / ${total} 题</span>
+                                <span>${progressPercent}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:${progressPercent}%;"></div>
+                            </div>
+                        </div>
+                        <span class="question-number">Q${index + 1}</span>
+                        <p class="question-text">${q.q}</p>
+                        <div class="options-list">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderResult(totalScore) {
+                let gradeData = resultGrades[0];
+                for (const g of resultGrades) {
+                    if (totalScore >= g.min && totalScore <= g.max) {
+                        gradeData = g;
+                        break;
+                    }
+                }
+
+                const minScore = 12;
+                const maxScore = 48;
+                const percent = Math.round(((totalScore - minScore) / (maxScore - minScore)) * 100);
+                const clampedPercent = Math.max(3, Math.min(97, percent));
+
+                const heartsHTML = Array.from({ length: gradeData.stars }, () => '❤️').join('');
+
+                mainWrapper.innerHTML = `
+                    <div class="card result-card result-page" style="display:block;">
+                        <div class="result-header">
+                            <span class="result-emoji">${gradeData.emoji}</span>
+                            <p class="result-grade" style="color:${gradeData.color};">${gradeData.grade}</p>
+                        </div>
+                        <div class="result-score-circle">
+                            <span class="result-score-num">${totalScore}</span>
+                            <span class="result-score-label">/ 48 分</span>
+                        </div>
+                        <div class="result-hearts">${heartsHTML}</div>
+                        <div class="result-bar-wrap">
+                            <div class="result-bar-bg">
+                                <div class="result-bar-fill" style="width:${clampedPercent}%;background:${gradeData.barColor};"></div>
+                            </div>
+                            <div class="result-bar-marker" style="left:${clampedPercent}%;background:${gradeData.color};">📍</div>
+                        </div>
+                        <p class="result-desc">${gradeData.desc}</p>
+                        <p class="result-extra-tag">${gradeData.tag}</p>
+                        <button class="btn-retry" onclick="restartTest()">🔄 再测一次</button>
+                    </div>
+                `;
+
+                // 延迟触发条形图动画
+                setTimeout(() => {
+                    const fillEl = mainWrapper.querySelector('.result-bar-fill');
+                    const markerEl = mainWrapper.querySelector('.result-bar-marker');
+                    if (fillEl) fillEl.style.width = clampedPercent + '%';
+                    if (markerEl) markerEl.style.left = clampedPercent + '%';
+                }, 150);
+            }
+
+            // ============ 交互逻辑 ============
+            window.startTest = function() {
+                currentQuestionIndex = 0;
+                scores = [];
+                isTransitioning = false;
+                renderQuestion(0);
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.selectAnswer = function(qIndex, optIndex) {
+                if (isTransitioning) return;
+                if (qIndex !== currentQuestionIndex) return;
+                isTransitioning = true;
+
+                const score = questions[qIndex].opts[optIndex].score;
+                scores.push(score);
+
+                // 高亮选中项
+                const allBtns = mainWrapper.querySelectorAll('.option-btn');
+                allBtns.forEach(b => b.classList.remove('selected'));
+                const selectedBtn = mainWrapper.querySelector(`.option-btn[data-index="${optIndex}"]`);
+                if (selectedBtn) {
+                    selectedBtn.classList.add('selected');
+                }
+                // 禁用所有按钮
+                allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+                // 延迟后切换题目
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        renderQuestion(currentQuestionIndex);
+                        isTransitioning = false;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        // 计算总分
+                        const totalScore = scores.reduce((a, b) => a + b, 0);
+                        renderResult(totalScore);
+                        isTransitioning = false;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 380);
+            };
+
+            window.restartTest = function() {
+                currentQuestionIndex = 0;
+                scores = [];
+                isTransitioning = false;
+                renderStartPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // ============ 初始化 ============
+            renderStartPage();
+
+            console.log('🌸 男娘值测试已就绪！');
+            console.log('💗 12道趣味题目 | 6个结果等级 | 可爱粉色主题');
+            console.log('🎀 祝你玩得开心~');
+        })();
+    </script>
+</body>
+</html>
